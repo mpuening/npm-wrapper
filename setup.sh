@@ -151,6 +151,7 @@ rm -f node.gradle
 if [[ $# -eq 1 ]]; then
   ./ngw new $1  --directory tmp
   cd tmp
+  rm -rf node_modules
   mv * .* ..
   cd ..
   rmdir tmp
