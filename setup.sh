@@ -24,10 +24,11 @@ cat << EOF >> npmw
 # example usage: ./npmw --version
 #
 for dir in \$(find ./.gradle/nodejs -mindepth 1 -maxdepth 1 -type d) ; do
-   export PATH=\$dir:\$PATH
+   export PATH=\$dir:\$dir/bin:\$PATH
 done
 npm \$*
 EOF
+chmod a+rx ./npmw
 fi
 
 #
@@ -45,10 +46,11 @@ cat << EOF >> ngw
 # example usage: ./ngw --version
 #
 for dir in \$(find ./.gradle/nodejs -mindepth 1 -maxdepth 1 -type d) ; do
-   export PATH=\$dir:\$PATH
+   export PATH=\$dir:\$dir/bin:\$PATH
 done
 ./node_modules/\@angular/cli/bin/ng \$*
 EOF
+chmod a+rx ./ngw
 fi
 
 #
@@ -64,7 +66,8 @@ buildscript {
     }
     repositories {
         mavenLocal()
-	mavenCentral()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
         // maven { url "$COMPANY_REGISTRY/plugins-release" }
     }
     dependencies {
