@@ -1,39 +1,77 @@
-Documentation for the setup of npm-wrapper
+# Documentation for the setup of npm-wrapper
 
 There are currently three usages of npm-wrapper:
 
-Bootstrap an Angular Project
+## Bootstrap an Angular Project
+
 Download and unzip the following URL:
+```
 https://github.com/mpuening/npm-wrapper/archive/master.zip
-Run the following command, replacing my-app with your preferred Angular project name;
+```
+
+Run the following command, replacing my-app with your preferred Angular project name:
+```
 ./setup.sh my-app
+```
+
 To start the app, run the following command:
+```
 ./ngw serve
+```
 
-Bootstrap a Typescript app using lite-server
+## Bootstrap a Typescript app using lite-server
+
 Download and unzip the following URL:
+```
 https://github.com/mpuening/npm-wrapper/archive/master.zip
+```
+
 Run the following command
+```
 ./setup.sh lite-server
-To start the app, run the following command:
-./npmw start
-To compile your Typescript files:
-./tscw
+```
 
-Add NPM Wrapper scripts to existing project
+To start the app, run the following command:
+```
+./npmw start
+```
+
+To compile your Typescript files:
+```
+./tscw
+```
+
+## Add NPM Wrapper scripts to existing project
+
 Download and unzip the following URL:
+```
 https://github.com/mpuening/npm-wrapper/archive/master.zip
-Run the following command without any parameters:
+```
+
+Run the following command without any parameters (Also see Settings section):
+```
 ./setup.sh
+```
+
 You can now use the wrapper scripts in place of the globally installed commands.
 
-Test Wrapper Scripts
+## Test Wrapper Scripts
 
+Here are three commands to verify that your wrapper scripts are working. They should each report their version.
+
+```
 ./npmw --version
-./ngw --version
-./tscw --version
+```
 
-Background and History
+```
+./ngw --version
+```
+
+```
+./tscw --version
+```
+
+## Background and History
 
 I found myself wasting too much time trying figuring out which version
 of Node and NPM to run on certain projects. Node and NPM projects are known
@@ -62,12 +100,12 @@ download and install Gradle, which is then used to run a Gradle script to instal
 Node and NPM... all within your project directory. You can then run the wrapper
 scripts to run your build and you never have to think again what version to use.
 
-Settings
+## Settings
 
-Git Ignore Suggestions
+## Git Ignore Suggestions
 
-Why do I need Java?
+## Why do I need Java?
 
-Bugs and Wish List
+## Why no README.md?
 
-Why no README.md?
+## Bugs and Wish List
