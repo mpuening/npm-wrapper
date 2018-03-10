@@ -131,7 +131,7 @@ When you need to update your version of Node that is installed locally, just upd
 script with values you want for Node, and then run this command which will clean out the old
 version:
 ```
-rm -rf .gradle && ./setup.sh
+rm -rf .gradle && ./setup.sh && ./npmw install
 ```
 
 You can double check your version of NPM with the following command:
