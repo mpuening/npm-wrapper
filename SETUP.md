@@ -16,6 +16,10 @@ Run the following command without any parameters (Also see Settings section):
 ```
 
 You can now use the wrapper scripts in place of the globally installed commands.
+Foe example:
+```
+./npmw start
+```
 
 ## Bootstrap an Angular Project
 
