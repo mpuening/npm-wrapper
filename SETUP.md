@@ -176,6 +176,10 @@ file created by the NG CLI, or a README.md file that you will likely have if you
 this npm-wrapper project into your existing project. Hopefully, none of the other file
 names I use collide with yours.
 
+## Is Windows supported?
+
+The scripts in this project should work using Git Bash.
+
 ## Bugs and Wish List
 
 For bootstrapping Angular projects, I wanted the project to be generated in the current
