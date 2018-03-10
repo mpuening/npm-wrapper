@@ -53,6 +53,27 @@ EOF
 chmod a+rx ./ngw
 fi
 
+# Create an Typescript Compiler Wrapper (tscw) script (if one doesn't exist)
+#
+if [ -f "tscw" ]; then
+	>&2 echo "tscw already exists"
+else
+cat << EOF >> tscw
+#!/bin/sh
+
+#
+# Script to execute typescript compiler using locally installed node
+#
+# example usage: ./tscw --version
+#
+for dir in \$(find ./.gradle/nodejs -mindepth 1 -maxdepth 1 -type d) ; do
+   export PATH=\$dir:\$dir/bin:\$PATH
+done
+./node_modules/typescript/bin/tsc \$*
+EOF
+chmod a+rx ./tscw
+fi
+
 #
 # Create a gradle script to download node and npm
 #
@@ -146,9 +167,41 @@ rm -f package-lock.json
 rm -f node.gradle
 
 #
-# Optional parameter to build an angular project
+# Optional parameter to build a lite-server or an angular project
 #
-if [[ $# -eq 1 ]]; then
+if [[ $# -eq 1  && $1 == "lite-server" ]]; then
+  ./npmw init --yes
+  ./npmw install lite-server --save-dev
+  ./npmw install typescript --save-dev
+  ./tscw --init
+  cat << EOF >> index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Typescript Playground</title>
+</head>
+<body>
+It works! Check console for more output.
+<script src="./app.js"></script>
+</body>
+</html>
+EOF
+  cat << EOF >> server.js
+#!/usr/bin/env node
+'use strict';
+
+// Provide a title to the process in 'ps'
+process.title = 'lite-server';
+
+require('lite-server/lib/lite-server')();
+EOF
+  cat << EOF >> app.ts
+console.log("It works!");
+EOF
+  ./tscw
+fi
+if [[ $# -eq 1 && $1 != "lite-server" ]]; then
   ./ngw new $1  --directory tmp
   cd tmp
   rm -rf node_modules
