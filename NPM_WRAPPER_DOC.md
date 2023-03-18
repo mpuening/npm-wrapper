@@ -2,7 +2,7 @@
 
 There are currently several usages of npm-wrapper:
 
-## Add NPM Wrapper scripts to an existing NPM project
+## [1] Add NPM Wrapper scripts to an existing NPM project
 
 Download and unzip the following URL. Copy the files from this project into your
 existing project:
@@ -31,7 +31,7 @@ Usage: ./setup-npmw.sh [-N <node-version>] [-n <npm-version>] [-a <ng-version>] 
 
 One can specify the version for Node, NPM, Angukar CLI and TypeSript version. The `-r` flag is to use an alternative registry (but is not tested at the moment.)
 
-The default vales are set at the top of the script.
+The default values are set at the top of the script.
 
 ### Test Wrapper Scripts
 
@@ -48,6 +48,8 @@ Here are three commands to verify that your wrapper scripts are working. They sh
 ```
 ./tscw --version
 ```
+
+Should you not require any of the scripts, you are free to delete them.
 
 ### Git Ignore Suggestions
 
@@ -66,14 +68,14 @@ npmw
 tscw
 ```
 
-## Bootstrap an Angular Project
+## [2] Bootstrap an Angular Project
 
 If you download the NPM Wrapper into an empty directory, and run the following command,
 replacing `my-app `with your preferred project name, you will create a starter Angular
 project.
 
 ```
-./setup.sh my-app
+./setup-npmw.sh my-app
 ```
 
 To start the app, run the following command:
@@ -81,13 +83,13 @@ To start the app, run the following command:
 ./ngw serve
 ```
 
-## Bootstrap a Typescript app with lite-server
+## [3] Bootstrap a Typescript app with lite-server
 
 If you download the NPM Wrapper into an empty directory, and run the following command,
 you will create a simple TypeScript starter `lite-server` project.
 
 ```
-./setup.sh lite-server
+./setup-npmw.sh lite-server
 ```
 
 To start the app, run the following command:
@@ -147,7 +149,7 @@ the `clean.sh` in the .npm-wrapper directory.
 
 ## Why do I need Java?
 
-Because of the use of the Gradle Wrapper to bootstrap the installation of everying,
+Because of the use of the Gradle Wrapper to bootstrap the installation of everything,
 you need to have Java installed. Once Node and NPM and installed localled, Java is
 not used again until you wish to update to newer versions of Node or NPM.
 
@@ -157,14 +159,3 @@ If you can install Node and NPM, you can install Java.
 
 The scripts in this project should work using Git Bash.
 
-## Bugs and Wish List
-
-For bootstrapping Angular projects, I wanted the project to be generated in the current
-directory. Unfortunately, this currently fails. Here is an issue:
-
-```
-https://github.com/angular/angular-cli/issues/5431
-```
-
-The setup-nomw.sh workarounds the issue by creating the project into a tmp directory
-and then moving it into the current directory.

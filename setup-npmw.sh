@@ -226,13 +226,8 @@ EOF
 # Optional parameter to build an angular project
 #
 create_angular_project() {
-    ./ngw new $1  --directory tmp
-    cd tmp
-    rm -rf node_modules
-    mv * .* ..
-    cd ..
-    rmdir tmp
-    ./npmw install
+    ./ngw new $1  --directory .
+    #./npmw install
 }
 
 #########################################
