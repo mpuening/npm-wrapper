@@ -1,10 +1,10 @@
 # Documentation for the setup of npm-wrapper
 
-There are currently three usages of npm-wrapper:
+There are currently several usages of npm-wrapper:
 
 ## Add NPM Wrapper scripts to an existing NPM project
 
-Download and unzip the following URL. Copy the files (except the LICENSE) from this project into your
+Download and unzip the following URL. Copy the files from this project into your
 existing project:
 ```
 https://github.com/mpuening/npm-wrapper/archive/master.zip
@@ -12,7 +12,7 @@ https://github.com/mpuening/npm-wrapper/archive/master.zip
 
 Run the following command without any parameters (Also see Settings section):
 ```
-./setup.sh
+./setup-npmw.sh
 ```
 
 You can now use the wrapper scripts in place of the globally installed commands.
@@ -21,14 +21,57 @@ For example:
 ./npmw start
 ```
 
+### Options
+
+Here is the usage of the setup script:
+
+```
+Usage: ./setup-npmw.sh [-N <node-version>] [-n <npm-version>] [-a <ng-version>] [-t <ts-version>] [-r]
+```
+
+One can specify the version for Node, NPM, Angukar CLI and TypeSript version. The `-r` flag is to use an alternative registry (but is not tested at the moment.)
+
+The default vales are set at the top of the script.
+
+### Test Wrapper Scripts
+
+Here are three commands to verify that your wrapper scripts are working. They should each report their version.
+
+```
+./npmw --version
+```
+
+```
+./ngw version
+```
+
+```
+./tscw --version
+```
+
+### Git Ignore Suggestions
+
+If you copy in this npm-wrapper into an existing project, you may want to add some
+entries to your `.gitignore` file so as to not inadvertantly add unceccessary files
+to your source control system.
+
+Here is what you should add:
+
+```
+NPM_WRAPPER_DOC.md
+setup-npmw.sh
+.npm-wrapper
+ngw
+npmw
+tscw
+```
+
 ## Bootstrap an Angular Project
 
-Download and unzip the following URL. Copy the files (except the LICENSE) from this project to an empty directory.
-```
-https://github.com/mpuening/npm-wrapper/archive/master.zip
-```
+If you download the NPM Wrapper into an empty directory, and run the following command,
+replacing `my-app `with your preferred project name, you will create a starter Angular
+project.
 
-Run the following command, replacing my-app with your preferred Angular project name:
 ```
 ./setup.sh my-app
 ```
@@ -40,12 +83,9 @@ To start the app, run the following command:
 
 ## Bootstrap a Typescript app with lite-server
 
-Download and unzip the following URL. Copy the files (except the LICENSE) from this project to an empty directory.
-```
-https://github.com/mpuening/npm-wrapper/archive/master.zip
-```
+If you download the NPM Wrapper into an empty directory, and run the following command,
+you will create a simple TypeScript starter `lite-server` project.
 
-Run the following command
 ```
 ./setup.sh lite-server
 ```
@@ -58,22 +98,6 @@ To start the app, run the following command:
 To compile your Typescript files:
 ```
 ./tscw
-```
-
-## Test Wrapper Scripts
-
-Here are three commands to verify that your wrapper scripts are working. They should each report their version.
-
-```
-./npmw --version
-```
-
-```
-./ngw --version
-```
-
-```
-./tscw --version
 ```
 
 ## Background and History
@@ -105,61 +129,21 @@ download and install Gradle, which is then used to run a Gradle script to instal
 Node and NPM... all within your project directory. You can then run the wrapper
 scripts to run your build and you never have to think again what version to use.
 
-## Settings
-
-At the top of the setup.sh script, there are these variables:
-
-* NODE_VERSION
-* NPM_VERSION
-* NG_CLI_VERSION
-
-Before running the setup.sh script you can update the values of those variables
-to match your requirements.
+## Configuration and Updates
 
 *Note* The NPM_VERSION is not used presently because NPM is shipped with Node.
-Should you which to control the version the NPM seprately from Node, you need
-to uncommment the value in the Gradle script. See line ~106, where npmVersion is used.
+Should you wish to control the version of NPM seprately from Node, you need
+to uncommment the value in the setup script. See line ~48, where npmVersion is
+used.
 
 In addition, an .npmrc file is not generated. Should you need an .npmrc file, you can set
 the NPMRC_REQUIRED variable to true, and COMPANY_REGISTRY to your registry if you have one,
 or just leave the value as false, and create one yourself.
 
-If the Gradle Wrapper cannot download Gradle, edit the gradle/wrapper/gradle-wrapper.properties
-and update the URL where Gradle can be downloaded.
+If the Gradle Wrapper cannot download Gradle, edit the gradle/wrapper/gradle-wrapper.properties and update the URL where Gradle can be downloaded.
 
-When you need to update your version of Node that is installed locally, just update the setup.sh
-script with values you want for Node, and then run this command which will clean out the old
-version:
-```
-rm -rf .gradle && ./setup.sh && ./npmw install
-```
-
-You can double check your version of NPM with the following command:
-```
-./npmw --version
-```
-
-## Git Ignore Suggestions
-
-If you copy in this npm-wrapper into project, you may want to add some entries to your
-.gitignore file so as to not inadvertantly add unceccessary files to your source control
-system.
-
-Here is what you should add:
-
-```
-SETUP.md
-setup.sh
-gradle/
-.gradle/
-gradlew
-gradlew.bat
-ngw
-npmw
-tscw
-```
-
-There is also the LICENSE file I added. Consider using your own license.
+When you need to update your version of Node that is installed locally, just update the setup-npmw.sh script with values you want for Node. Before re-running the script, run
+the `clean.sh` in the .npm-wrapper directory.
 
 ## Why do I need Java?
 
@@ -168,13 +152,6 @@ you need to have Java installed. Once Node and NPM and installed localled, Java 
 not used again until you wish to update to newer versions of Node or NPM.
 
 If you can install Node and NPM, you can install Java.
-
-## Why no README.md?
-
-I purposely avoided having a file named README.md to not collide with the README.md
-file created by the NG CLI, or a README.md file that you will likely have if you copy
-this npm-wrapper project into your existing project. Hopefully, none of the other file
-names I use collide with yours.
 
 ## Is Windows supported?
 
@@ -189,5 +166,5 @@ directory. Unfortunately, this currently fails. Here is an issue:
 https://github.com/angular/angular-cli/issues/5431
 ```
 
-The setup.sh workarounds the issue by creating the project into a tmp directory
+The setup-nomw.sh workarounds the issue by creating the project into a tmp directory
 and then moving it into the current directory.
